@@ -62,9 +62,11 @@ function addBook() {
 
 function searchBooks() {
     const query = document.getElementById('searchQuery').value;
+    const type = document.getElementById('searchType').value; // 검색 유형 (title 또는 author)
 
-    fetch(`http://127.0.0.1:8000/books/search?title=${encodeURIComponent(query)}`)
+    fetch(`http://127.0.0.1:8000/books/search?${type}=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => displayBooks(data))
         .catch(error => console.error('Error:', error));
 }
+
