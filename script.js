@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         addBook();
     });
+
+    document.getElementById('searchBookForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        searchBooks();
+    });
+    
 });
 
 function fetchBooks() {
@@ -52,4 +58,13 @@ function addBook() {
         fetchBooks(); // 목록 새로고침
     })
     .catch(error => console.error('Error:', error));
+}
+
+function searchBooks() {
+    const query = document.getElementById('searchQuery').value;
+
+    fetch(`http://127.0.0.1:8000/books/search?title=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => displayBooks(data))
+        .catch(error => console.error('Error:', error));
 }
